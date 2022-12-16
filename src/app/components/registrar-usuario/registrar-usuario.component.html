@@ -1,0 +1,50 @@
+<div *ngIf="!loading" class="p-10 bg-white text-center rounded-lg max-w-[420px]">
+  <img src="https://cdn-icons-png.flaticon.com/512/72/72648.png" alt="login_img" />
+  <h1 class="mt-5 text-5xl font-bold">Register</h1>
+  <form (ngSubmit)="registrar()" class="mt-6 flex flex-col gap-4" [formGroup]="registrarUsuario">
+    <div class="relative">
+      <i class="absolute left-3.5 top-2.5 ri-mail-line"></i>
+      <input formControlName="email" class="w-full px-10 py-2.5 border border-black rounded shadow" name="user"
+        type="text" placeholder="Correo electrónico" />
+      <p *ngIf="registrarUsuario.get('email')?.hasError('required') && registrarUsuario.get('email')?.touched"
+        class="mt-1 text-left text-red-600">
+        El <strong>correo</strong> es requerido!
+      </p>
+      <p *ngIf="registrarUsuario.get('email')?.hasError('email') && registrarUsuario.get('email')?.touched"
+        class="mt-1 text-left text-red-600">
+        El <strong>correo</strong> es inválido!
+      </p>
+    </div>
+    <div class="relative">
+      <i class="absolute left-3.5 top-2.5 ri-lock-line"></i>
+      <input formControlName="password" class="w-full px-10 py-2.5 border border-black rounded shadow" name="pass"
+        type="password" placeholder="Contraseña" />
+      <p *ngIf="registrarUsuario.get('password')?.hasError('required') && registrarUsuario.get('password')?.touched"
+        class="mt-1 text-left text-red-600">
+        El <strong>password</strong> es requerido!
+      </p>
+      <p *ngIf="registrarUsuario.get('password')?.hasError('minlength') && registrarUsuario.get('password')?.touched"
+        class="mt-1 text-left text-red-600">
+        El <strong>password</strong> debe tener como mínimo 6 carácteres!
+      </p>
+    </div>
+    <div class="relative">
+      <i class="absolute left-3.5 top-2.5 ri-lock-password-line"></i>
+      <input formControlName="repetirPassword" class="w-full px-10 py-2.5 border border-black rounded shadow"
+        name="pass" type="password" placeholder="Repetir contraseña" />
+    </div>
+    <button class="px-5 py-3 bg-gray-700 hover:bg-black text-white text-lg rounded-lg" type="submit"
+      [disabled]="registrarUsuario.invalid">
+      Register now!
+    </button>
+  </form>
+  <p class="mt-5">Ya tienes una cuenta? <a
+      class="text-blue-700 hover:text-indigo-700 hover:font-bold underline cursor-pointer"
+      routerLink="/login">Loguéate</a></p>
+</div>
+
+<!--Spinner-->
+<div *ngIf="loading" class="flex justify-center items-center gap-7">
+  <app-spinner></app-spinner>
+  <p class="text-5xl font-semibold">Loading...</p>
+</div>

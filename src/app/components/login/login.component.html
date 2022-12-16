@@ -1,0 +1,45 @@
+<div *ngIf="!loading" class="p-10 bg-white text-center rounded-lg max-w-[420px]">
+  <img src="http://cdn.onlinewebfonts.com/svg/img_542950.png" alt="login_img" />
+  <h1 class="mt-5 text-5xl font-bold">Login</h1>
+  <form (ngSubmit)="login()" class="mt-6 flex flex-col gap-4" [formGroup]="loginUsuario">
+    <div class="relative">
+      <i class="absolute left-3.5 top-2.5 ri-mail-line"></i>
+      <input formControlName="email" class="w-full px-10 py-2.5 border border-black rounded shadow" name="user"
+        type="text" placeholder="Correo electrónico" />
+      <p *ngIf="loginUsuario.get('email')?.hasError('required') && loginUsuario.get('email')?.touched"
+        class="mt-1 text-left text-red-600">
+        El <strong>correo</strong> es requerido!
+      </p>
+      <p *ngIf="loginUsuario.get('email')?.hasError('email') && loginUsuario.get('email')?.touched"
+        class="mt-1 text-left text-red-600">
+        El <strong>correo</strong> es inválido!
+      </p>
+    </div>
+    <div class="relative">
+      <i class="absolute left-3.5 top-2.5 ri-lock-line"></i>
+      <input formControlName="password" class="w-full px-10 py-2.5 border border-black rounded shadow" name="pass"
+        type="password" placeholder="Contraseña" />
+      <p *ngIf="loginUsuario.get('password')?.hasError('required') && loginUsuario.get('password')?.touched"
+        class="mt-1 text-left text-red-600">
+        El <strong>password</strong> es requerido!
+      </p>
+      <p *ngIf="loginUsuario.get('password')?.hasError('minlength') && loginUsuario.get('password')?.touched"
+        class="mt-1 text-left text-red-600">
+        El <strong>password</strong> debe tener como mínimo 6 carácteres!
+      </p>
+    </div>
+    <button class="px-5 py-3 bg-gray-700 hover:bg-black text-white text-lg rounded-lg" type="submit"
+      [disabled]="loginUsuario.invalid">Login now!</button>
+  </form>
+  <p class="mt-5">No tienes una cuenta? <a
+      class="text-blue-700 hover:text-indigo-700 hover:font-bold underline cursor-pointer"
+      routerLink="/registrar-usuario">Registrar</a></p>
+  <a class="mt-3 text-blue-700 hover:text-indigo-700 hover:font-bold underline cursor-pointer"
+    routerLink="/recuperar-password">Recuperar contraseña</a>
+</div>
+
+<!--Spinner-->
+<div *ngIf="loading" class="flex justify-center items-center gap-7">
+  <app-spinner></app-spinner>
+  <p class="text-5xl font-semibold">Loading...</p>
+</div>
